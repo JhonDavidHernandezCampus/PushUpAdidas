@@ -20,3 +20,8 @@ Correr el frontend
 ``````
 npm run dev
 ``````
+
+Correr el backend
+``````
+npm run serve
+``````

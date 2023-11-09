@@ -14,7 +14,5 @@ export default {
       }
     },
   },
-  plugins: [
-    nextui()
-  ],
+  plugins: [nextui()],
 }
