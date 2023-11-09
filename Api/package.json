@@ -1,0 +1,28 @@
+{
+  "name": "pushupclaybioseguridad",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "![](https://raw.githubusercontent.com/CampusLands/DER/main/DER.jpg)",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.2"
+  },
+  "devDependencies": {
+    "class-transformer": "0.5.1",
+    "class-validator": "0.14.0",
+    "dotenv": "16.3.1",
+    "express-rate-limit": "7.1.3",
+    "express-validator": "7.0.1",
+    "jose": "4.14.4",
+    "mysql2": "3.5.1",
+    "nodemon": "3.0.1",
+    "reflect-metadata": "0.1.13"
+  }
+}
