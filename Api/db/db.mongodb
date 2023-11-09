@@ -1,0 +1,284 @@
+// * Funcion para los ids Autoincrementables
+
+function aumentarId(categoria, id) {
+    use("zoologico_campus");
+    let data = db[categoria].find().sort({ [id]: -1 }).toArray();
+    if (data.length < 1) return 1;
+
+    let lastNumber = data[0][id];
+    return lastNumber + 1;
+}
+
+
+// ! USUARIO
+use('addidasdb');
+db.createCollection('usuario', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ["id_usuario", "nombre", "email", "edad", "direccion", "telefono",],
+            properties: {
+                id_usuario: {
+                    bsonType: 'int'
+                },
+                nombre: {
+                    bsonType: 'string'
+                },
+                email: {
+                    bsonType: 'string'
+                },
+                edad: {
+                    bsonType: 'int'
+                },
+                direccion: {
+                    bsonType: 'string',
+                    pattern: '^[a-zA-Z0-9 _$%&#!?¡]+$'
+                },
+                telefono: {
+                    bsonType: 'string',
+                    pattern: "[0-9 _+]+$"
+                },
+            }
+        }
+    }
+})
+use('addidasdb');
+db.usuario.createIndex(
+    { id_usuario: 1, nombre: 1 },
+    { unique: true }
+);
+
+use('addidasdb');
+db.usuario.insertOne({
+    id_usuario: aumentarId("usuario", "id_usuario"),
+    nombre: "Juan Perez",
+    email: "juan@example.com",
+    edad: 30,
+    direccion: "Calle 123",
+    telefono: "1234567890"
+});
+
+db.usuario.insertOne({
+    id_usuario: aumentarId("usuario", "id_usuario"),
+    nombre: "María Rodriguez",
+    email: "maria@example.com",
+    edad: 25,
+    direccion: "Avenida XYZ",
+    telefono: "9876543210"
+});
+
+db.usuario.insertOne({
+    id_usuario: aumentarId("usuario", "id_usuario"),
+    nombre: "Carlos Sanchez",
+    email: "carlos@example.com",
+    edad: 35,
+    direccion: "Calle ABC",
+    telefono: "5555555555"
+});
+
+db.usuario.insertOne({
+    id_usuario: aumentarId("usuario", "id_usuario"),
+    nombre: "Laura Gomez",
+    email: "laura@example.com",
+    edad: 28,
+    direccion: "Avenida 456",
+    telefono: "9999999999"
+});
+
+db.usuario.insertOne({
+    id_usuario: aumentarId("usuario", "id_usuario"),
+    nombre: "Pedro López",
+    email: "pedro@example.com",
+    edad: 40,
+    direccion: "Calle 789",
+    telefono: "7777777777"
+});
+
+
+
+// ! TIPO_PRODUCTO
+use('addidasdb');
+db.createCollection('tipo_producto', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ["id_tipo_producto", "nombre_tipo", "descripcion"],
+            properties: {
+                id_tipo_producto: {
+                    bsonType: 'int'
+                },
+                nombre_tipo: {
+                    bsonType: 'string'
+                },
+                descripcion: {
+                    bsonType: 'string'
+                }
+            }
+        }
+    }
+})
+use("addidasdb");
+db.tipo_producto.createIndex(
+    { id_tipo_producto: 1 },
+    { unique: true }
+)
+
+use("addidasdb");
+db.tipo_producto.insertOne({
+    id_tipo_producto: aumentarId("tipo_producto", "id_tipo_producto"),
+    nombre_tipo: "Zapato",
+    descripcion: "Paquete pequeño"
+});
+
+db.tipo_producto.insertOne({
+    id_tipo_producto: aumentarId("tipo_producto", "id_tipo_producto"),
+    nombre_tipo: "Camisa",
+    descripcion: "Paquete mediano"
+});
+
+db.tipo_producto.insertOne({
+    id_tipo_producto: aumentarId("tipo_producto", "id_tipo_producto"),
+    nombre_tipo: "gorra",
+    descripcion: "Paquete grande"
+});
+
+db.tipo_producto.insertOne({
+    id_tipo_producto: aumentarId("tipo_producto", "id_tipo_producto"),
+    nombre_tipo: "Gafas",
+    descripcion: "Paquete extra grande"
+});
+
+db.tipo_producto.insertOne({
+    id_tipo_producto: aumentarId("tipo_producto", "id_tipo_producto"),
+    nombre_tipo: "Zapatillas",
+    descripcion: "Paquete especial"
+});
+
+// ! PRODUCTO
+use('addidasdb');
+db.createCollection('producto', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ["id_producto", "descripcion","color", "precio","id_tipo_producto_fk"],
+            properties: {
+                id_producto: {
+                    bsonType: 'int'
+                },
+                descripcion: {
+                    bsonType: 'string'
+                },
+                color: {
+                    bsonType: 'string'
+                },
+                precio: {
+                    bsonType: 'double'
+                },
+                id_tipo_producto_fk:{
+                    bsonType:'int'
+                }
+            }
+        }
+    }
+})
+use("addidasdb");
+db.id_producto.createIndex(
+    { id_producto: 1 },
+    { unique: true }
+)
+
+use('addidasdb');
+db.producto.insertOne({
+    id_producto: aumentarId("paquete", "id_paquete"),
+    descripcion: "Zapato S21-32 GT",
+    color: "Azun con Blanco",
+    precio: 22011100.0,
+    id_tipo_producto_fk: 1,
+});
+// ! TRANSACCION
+use('addidasdb');
+db.createCollection('transaccion', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ["id_transaccion", "fecha_transaccion", "numero_cuenta","valor_transaccion"],
+            properties: {
+                id_transaccion: {
+                    bsonType: 'int'
+                },
+                fecha_transaccion: {
+                    bsonType: 'date'
+                },
+                numero_cuenta: {
+                    bsonType: 'string'
+                },
+                valor_transaccion: {
+                    bsonType: 'double'
+                }
+            }
+        }
+    }
+})
+use('addidasdb');
+db.transaccion.createIndex(
+    {id_transaccion:1},
+    {unique:true}
+)
+use('addidasdb');
+db.transaccion.insertOne({
+    id_transaccion: aumentarId("transaccion", "id_transaccion"),
+    fecha_transaccion:  new Date("2023-11-03T10:00:00Z"),
+    numero_cuenta: "1232221212",
+    valor_transaccion: 22011100.2,
+});
+
+
+use('addidasdb');
+db.transaccion.insertOne({
+    id_transaccion: aumentarId("transaccion", "id_transaccion"),
+    fecha_transaccion:  new Date("2023-11-03T10:00:00Z"),
+    numero_cuenta: "14355465465",
+    valor_transaccion: 22011100.9,
+});
+
+// ! VENTA
+use('addidasdb');
+db.createCollection('venta', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ["id_venta", "fecha_venta", "id_usuario_fk","cantidad","id_transaccion_fk"],
+            properties: {
+                id_venta: {
+                    bsonType: 'int'
+                },
+                fecha_venta: {
+                    bsonType: 'date'
+                },
+                id_usuario_fk: {
+                    bsonType: 'int'
+                },
+                cantidad:{
+                    bsonType:'int'
+                },
+                id_transaccion_fk: {
+                    bsonType: 'int'
+                }
+            }
+        }
+    }
+})
+use("addidasdb");
+db.venta.createIndex(
+    { id_venta: 1 },
+    { unique: true }
+)
+
+use('addidasdb');
+db.venta.insertOne({
+    id_venta: aumentarId("venta", "id_venta"),
+    fecha_venta:  new Date("2023-11-03T10:00:00Z"),
+    id_usuario_fk: 2,
+    cantidad: 2,
+    id_transaccion_fk:1
+});

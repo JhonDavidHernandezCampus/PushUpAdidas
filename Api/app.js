@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import express  from 'express';
-import routesVentas from './routes/[routes]ventas.js';
+
+import routesEnvio from './routes/[routes]envio.js';
+import routesUsuario from './routes/[routes]usuario.js'
 import jwtModule from './controller/jwt.js';
 
 dotenv.config();
@@ -10,7 +12,9 @@ appExpress.use(express.json());
 appExpress.use(express.text());
 
 
-appExpress.use('/ventas', jwtModule.validartoken,routesVentas);
+
+appExpress.use('/envio', jwtModule.validartoken,routesEnvio);
+appExpress.use('/usuario', jwtModule.validartoken,routesUsuario);
 appExpress.use('/token', jwtModule.jwt );
 
 
