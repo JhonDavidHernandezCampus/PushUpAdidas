@@ -7,11 +7,12 @@ import Home from './Home ';
 function App() {
   const [count, setCount] = useState(0)
   return <>
-      <BrowserRouter>
-        <Routes>
-          <Route  path = "/home" element= {<Home />} />
-        </Routes>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   </>
 }
 

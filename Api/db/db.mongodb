@@ -160,7 +160,7 @@ db.createCollection('producto', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ["id_producto", "descripcion","color", "precio","id_tipo_producto_fk"],
+            required: ["id_producto", "descripcion","color", "precio","id_tipo_producto_fk","urlimg"],
             properties: {
                 id_producto: {
                     bsonType: 'int'
@@ -176,25 +176,81 @@ db.createCollection('producto', {
                 },
                 id_tipo_producto_fk:{
                     bsonType:'int'
+                },
+                urlimg:{
+                    bsonType:"string"
                 }
+
             }
         }
     }
 })
 use("addidasdb");
-db.id_producto.createIndex(
+db.producto.createIndex(
     { id_producto: 1 },
     { unique: true }
 )
 
+function aumentarId(categoria, id) {
+    use("addidasdb");
+    let data = db[categoria].find().sort({ [id]: -1 }).toArray();
+    if (data.length < 1) return 1;
+
+    let lastNumber = data[0][id];
+    return lastNumber + 1;
+}
 use('addidasdb');
 db.producto.insertOne({
-    id_producto: aumentarId("paquete", "id_paquete"),
+    id_producto: aumentarId("producto", "id_producto"),
     descripcion: "Zapato S21-32 GT",
     color: "Azun con Blanco",
-    precio: 22011100.0,
+    precio: 22011100.2,
     id_tipo_producto_fk: 1,
+    urlimg:"https://assets.adidas.com/images/w_600,f_auto,q_auto/c142072a75bb4a7fa357ae9b0104b4ec_9366/Tenis_Response_Super_3.0_Negro_GW1371_01_standard.jpg",
 });
+use('addidasdb');
+db.producto.insertOne({
+    id_producto: aumentarId("producto", "id_producto"),
+    descripcion: "Zapato S21-32 GT",
+    color: "Rozado con Blanco",
+    precio: 22100.2,
+    id_tipo_producto_fk: 1,
+    urlimg:"https://assets.adidas.com/images/w_600,f_auto,q_auto/9aa173c505834cb6ad0aaf58012023c3_9366/Tenis_Comfort_Runner_Blanco_HP9838_01_standard.jpg",
+});
+
+use('addidasdb');
+db.producto.insertOne({
+    id_producto: aumentarId("producto", "id_producto"),
+    descripcion: "Zapato S21-32 GT",
+    color: "Azun con Blanco",
+    precio: 22011100.2,
+    id_tipo_producto_fk: 1,
+    urlimg:"https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/esCO/Images/card-3-d_tcm195-1009679.jpg",
+});
+
+use('addidasdb');
+db.producto.insertOne({
+    id_producto: aumentarId("producto", "id_producto"),
+    descripcion: "Zapato S21-32 GT",
+    color: "Azun con Blanco",
+    precio: 220.2,
+    id_tipo_producto_fk: 1,
+    urlimg:"https://zshopp.com/wp-content/uploads/2021/07/BEIGE-2.jpg",
+});
+use('addidasdb');
+db.producto.insertOne({
+    id_producto: aumentarId("producto", "id_producto"),
+    descripcion: "Zapato S21-32 GT",
+    color: "Azun con Blanco",
+    precio: 220.2,
+    id_tipo_producto_fk: 1,
+    urlimg:"https://media.revistagq.com/photos/62a314534741781ec3a0ac45/4:3/w_5120,h_3840,c_limit/chris-henry-tV8yaU09t7w-unsplash.jpg",
+});
+
+
+
+
+
 // ! TRANSACCION
 use('addidasdb');
 db.createCollection('transaccion', {

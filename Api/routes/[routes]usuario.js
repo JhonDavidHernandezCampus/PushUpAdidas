@@ -14,7 +14,7 @@ const router = Router();
 
 router.get('/All', limit(), usuarioAll);
 router.get('/julio', limit(), usuarioJulio);
-router.post('/insert', limit(), dtoEmpleado , usuarioinsert);
+router.get('/productos', limit() , usuarioinsert);
 router.put('/update', limit(), dtoId,dtoEmpleado,usuarioupdate);
 router.delete('/delete', limit(), dtoId,usuariodelete);
 

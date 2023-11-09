@@ -49,7 +49,7 @@ const usuarioJulio = async(req, res) => {
 
 /* 
  * me permite insertar usuario 
- * http://127.1.1.1:5001/usuario/insert
+ * http://127.1.1.1:5001/usuario/productos
  * * method: POST
  * Data a enviar
 {
@@ -60,10 +60,12 @@ const usuarioJulio = async(req, res) => {
 }
  * 
 */
-const usuarioinsert = (req, res) => {
+const usuarioinsert = async(req, res) => {
     try {
-        let data = req.body;
-
+        const db = await conx()        ;
+        const producto =  db.collection('producto');
+        let result = await producto.find().toArray();
+        res.status(200).send(result)
     } catch (error) {
         console.log("error en la consulta en cuestion");
         res.status(400).send(error)

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "./Header";
+import Productos from "./Productos";
 
 
 function Home() {
@@ -9,11 +10,11 @@ function Home() {
             <div className="">
                 <Header />
             </div>
-            <div className="">
-
+            <div className="p-28">
+                <Productos  />
             </div>
             <div className="">
-
+            
             </div>
         </div>
     </>
